@@ -27,9 +27,9 @@ export default {
   },
   methods: {
     async getRss() {
-      const urlRegex = /(http|ftp|https)://[\w-]+(.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?/;
+      var urlRegex = /^(http|https):\/\/[w\d]+\.[\w](\/[\w\d]+)?$/;
       if (!urlRegex.test(this.rssUrl)) {
-        return;
+        console.log("not valid");
       }
       const res = await fetch(
         `https://api.allorigins.win/get?url=${this.rssUrl}`
