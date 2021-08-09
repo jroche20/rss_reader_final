@@ -27,10 +27,12 @@ export default {
   },
   methods: {
     async getRss() {
-      var urlRegex = /^(http|https):\/\/[w\d]+\.[\w](\/[\w\d]+)?$/;
+      const urlRegex = /^(http|https):\/\/[w\d]+\.[\w](\/[\w\d]+)?/;
       if (!urlRegex.test(this.rssUrl)) {
         console.log("not valid");
+        return;
       }
+      console.log("valid");
       const res = await fetch(
         `https://api.allorigins.win/get?url=${this.rssUrl}`
       );
@@ -42,6 +44,7 @@ export default {
         title: el.querySelector("title").innerHTML,
         author: el.querySelector("author").innerHTML,
       }));
+      console.log(this.items);
     },
   },
 };
