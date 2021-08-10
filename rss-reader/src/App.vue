@@ -38,11 +38,11 @@ export default {
       );
       const { contents } = await res.json();
       const feed = new window.DOMParser().parseFromString(contents, "text/xml");
-      const items = feed.querySelectorAll("title");
+      const items = feed.querySelectorAll("head");
       this.items = [...items].map((el) => ({
-        // link: el.querySelector("url"),
-        title: el.querySelector("title"),
-        // author: el.querySelector("name"),
+        // link: el.querySelector("url").innerHTML,
+        title: el.querySelector("title").innerHTML,
+        // author: el.querySelector("author").innerHTML,
       }));
       console.log(feed);
       console.log(this.items);
