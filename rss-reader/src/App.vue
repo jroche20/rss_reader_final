@@ -40,7 +40,7 @@ export default {
       const feed = new window.DOMParser().parseFromString(contents, "text/xml");
       const items = feed.querySelectorAll("head");
       this.items = [...items].map((el) => ({
-        // link: el.querySelector("url").innerHTML,
+        link: el.querySelector("link").innerHTML,
         title: el.querySelector("title").innerHTML,
         // author: el.querySelector("author").innerHTML,
       }));
