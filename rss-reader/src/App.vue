@@ -1,6 +1,11 @@
 <template>
   <div id="app">
-    <img src="@/assets/caena.svg" alt="caena">
+    <div class="header">
+      <div class="imgsection"> 
+        <img src="@/assets/caena.svg" alt="caena" class="logo">
+      </div>
+      <h1 class="title">RSS Reader</h1>
+    </div>
     <form @submit.prevent="getRss">
       <div>
         <label> rss url</label>
@@ -10,9 +15,9 @@
       <input type="submit" class="submit"/>
     </form>
     <div v-for="item of items" :key="item.title">
-      <h1>{{ item.title }}</h1>
-      <p>{{ item.author }}</p>
-      <a :href="item.link">{{ item.link }}</a>
+      <h1 class="text">{{ item.title }}</h1>
+      <p class="text">{{ item.author }}</p>
+      <a class="link" :href="item.link">{{ item.link }}</a>
     </div>
   </div>
 </template>
@@ -62,19 +67,19 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #124F4E;
   line-height: 30px;
 }
 
 .submit {
   font-family: 'Poppins', sans-serif;
-  border: 0.5px solid #333E49; 
   background-color: #1D817F;
+  text-decoration: none;
   color: white;
   width: 100px;
   padding: 5px;
   font-size: 16px;
+  border-radius: 4px;
 }
 
 form {
@@ -84,8 +89,49 @@ form {
 }
 
 .url_input {
-  width: 300px;
+  width: 400px;
   height: 20px;
   margin: 20px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.logo {
+    width: 150px;
+    height: 50px;
+    padding: 9px;
+    /* margin-left: 20px; */
+    /* margin-bottom: 30px;  */
+}
+
+.title {
+    padding: 20px;
+    background: #1D817F;
+    color: white;
+    font-size: 20px;
+    width: 100%;
+}
+
+.imgsection {
+  border-top: 1px solid #1D817F;
+  border-bottom: 1px solid #1D817F;
+  width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  color: #124F4E;
+  font-size: 25px;
+}
+
+.link {
+  text-decoration: none;
+  color: #124F4E;
 }
 </style>
