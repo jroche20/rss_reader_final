@@ -39,12 +39,13 @@ export default {
       const { contents } = await res.json();
       const feed = new window.DOMParser().parseFromString(contents, "text/xml");
       const items = feed.querySelectorAll("head");
+      console.log(feed);
       this.items = [...items].map((el) => ({
-        link: el.querySelector("link").innerHTML,
+        // link: el.querySelector('meta[property="og:url"]'),
+        link: el.querySelector('link[rel="canonical"]').getAttribute('href'),
         title: el.querySelector("title").innerHTML,
         // author: el.querySelector("author").innerHTML,
       }));
-      console.log(feed);
       console.log(this.items);
     },
   },
@@ -53,6 +54,7 @@ export default {
 
 <style>
 #app {
+  @import "./scss/main.scss";
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
