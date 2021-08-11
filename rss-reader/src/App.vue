@@ -1,12 +1,13 @@
 <template>
   <div id="app">
+    <img src="@/assets/caena.svg" alt="caena">
     <form @submit.prevent="getRss">
       <div>
         <label> rss url</label>
         <br />
-        <input v-model="rssUrl" />
+        <input v-model="rssUrl" class="url_input" placeholder="url"/>
       </div>
-      <input type="submit" />
+      <input type="submit" class="submit"/>
     </form>
     <div v-for="item of items" :key="item.title">
       <h1>{{ item.title }}</h1>
@@ -54,12 +55,37 @@ export default {
 
 <style>
 #app {
-  @import "./scss/main.scss";
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  /* @import "./scss/main.scss"; */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  line-height: 30px;
+}
+
+.submit {
+  font-family: 'Poppins', sans-serif;
+  border: 0.5px solid #333E49; 
+  background-color: #1D817F;
+  color: white;
+  width: 100px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+form {
+  background-color: rgba(246, 247, 249, 0.5);
+  padding: 20px;
+  margin: 40px;
+}
+
+.url_input {
+  width: 300px;
+  height: 20px;
+  margin: 20px;
 }
 </style>
