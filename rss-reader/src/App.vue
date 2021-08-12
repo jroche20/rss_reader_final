@@ -4,7 +4,7 @@
       <div class="imgsection"> 
         <img src="@/assets/caena.svg" alt="caena" class="logo">
       </div>
-      <h1 class="title">RSS Reader</h1>
+      <h1 class="title">System Status</h1>
     </div>
     <form @submit.prevent="getRss">
       <div>
@@ -15,8 +15,8 @@
       <input type="submit" class="submit"/>
     </form>
     <div v-for="item of items" :key="item.title">
-      <h1 class="text">{{ item.title }}</h1>
-      <p class="text">{{ item.author }}</p>
+      <h1 class="text">Title: {{ item.title }}</h1>
+      <p class="text">Last Build Date: {{ item.date }}</p>
       <a class="link" :href="item.link">{{ item.link }}</a>
     </div>
   </div>
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     async getRss() {
-      const urlRegex = /^(http|https):\/\/[w\d]+\.[\w](\/[\w\d]+)?/;
+      const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
       if (!urlRegex.test(this.rssUrl)) {
         console.log("not valid");
         return;
@@ -44,13 +44,12 @@ export default {
       );
       const { contents } = await res.json();
       const feed = new window.DOMParser().parseFromString(contents, "text/xml");
-      const items = feed.querySelectorAll("head");
+      const items = feed.querySelectorAll("channel");
       console.log(feed);
       this.items = [...items].map((el) => ({
-        // link: el.querySelector('meta[property="og:url"]'),
-        link: el.querySelector('link[rel="canonical"]').getAttribute('href'),
+        link: el.querySelector("link").innerHTML,
         title: el.querySelector("title").innerHTML,
-        // author: el.querySelector("author").innerHTML,
+        date: el.querySelector("lastBuildDate").innerHTML,
       }));
       console.log(this.items);
     },
@@ -118,8 +117,6 @@ form {
 }
 
 .imgsection {
-  border-top: 1px solid #1D817F;
-  border-bottom: 1px solid #1D817F;
   width: 200px;
   display: flex;
   align-items: center;
