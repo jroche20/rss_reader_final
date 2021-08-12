@@ -7,19 +7,28 @@
       <h1 class="title">System Status</h1>
     </div>
     <form @submit.prevent="getRss">
-      <div>
-        <label> rss url</label>
-        <br />
-        <input v-model="rssUrl" class="url_input" placeholder="url"/>
+      <div class="firstblock">
+        <label>Current Status</label>
+        <!-- <br />
+        <input v-model="rssUrl" class="url_input" placeholder="url"/> -->
       </div>
       <input type="submit" class="submit"/>
     </form>
-    <div v-for="item of items" :key="item.title">
-      <h1 class="text">Title: {{ item.title }}</h1>
-      <p class="text">Last Build Date: {{ item.date }}</p>
-      <a class="link" :href="item.link">{{ item.link }}</a>
+    <div class="aws">
+      <div v-for="item of items1" :key="item.title">
+        <h1 class="text">Frankfurt AWS Status</h1>
+        <p class="text">Last Build Date: {{ item.date }}</p>
+        <a class="link" :href="item.link">{{ item.link }}</a>
+      </div>
     </div>
-  </div>
+    <div class="aws">
+      <div v-for="item of items2" :key="item.title">
+        <h1 class="text">Title: {{ item.title }}</h1>
+        <p class="text">Last Build Date: {{ item.date }}</p>
+        <a class="link" :href="item.link">{{ item.link }}</a>
+      </div>
+    </div>
+  </div>  
 </template>
 
 <script>
@@ -28,30 +37,53 @@ export default {
   data() {
     return {
       rssUrl: "",
-      items: [],
+      frankfurtURL: "https://status.aws.amazon.com/rss/apigateway-eu-central-1.rss",
+      montrealURL: "https://status.aws.amazon.com/rss/detective-ca-central-1.rss",
+      items1: [],
+      items2: [],
     };
   },
   methods: {
     async getRss() {
-      const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
-      if (!urlRegex.test(this.rssUrl)) {
-        console.log("not valid");
-        return;
-      }
-      console.log("valid");
+      // const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
+      // if (!urlRegex.test(this.rssUrl)) {
+      //   console.log("not valid");
+      //   return;
+      // }
+      // const res = await fetch(
+      //   `https://api.allorigins.win/get?url=https://status.aws.amazon.com/rss/apigateway-eu-central-1.rss`
+      // );
+      // const res2 = await fetch(
+      //   `https://api.allorigins.win/get?url=https://status.aws.amazon.com/rss/detective-ca-central-1.rss`
+      // );
       const res = await fetch(
-        `https://api.allorigins.win/get?url=${this.rssUrl}`
+        `https://api.allorigins.win/get?url=${this.frankfurtURL}`
       );
       const { contents } = await res.json();
+      
       const feed = new window.DOMParser().parseFromString(contents, "text/xml");
-      const items = feed.querySelectorAll("channel");
-      console.log(feed);
-      this.items = [...items].map((el) => ({
+      const items1 = feed.querySelectorAll("channel");
+      this.items1 = [...items1].map((el) => ({
         link: el.querySelector("link").innerHTML,
         title: el.querySelector("title").innerHTML,
         date: el.querySelector("lastBuildDate").innerHTML,
       }));
-      console.log(this.items);
+
+      // const res2 = await fetch(
+      //   `https://api.allorigins.win/get?url=${this.montrealURL}`
+      // );
+      // const items2 = feed2.querySelectorAll("channel");
+      // const feed2 = new window.DOMParser().parseFromString(contents2, "text/xml");
+      // const { contents2 } = await res2.json();
+      // this.items2 = [...items2].map((el) => ({
+      //   link: el.querySelector("link").innerHTML,
+      //   title: el.querySelector("title").innerHTML,
+      //   date: el.querySelector("lastBuildDate").innerHTML,
+      // }));
+      
+
+      // console.log(contents);
+      // console.log(contents2);
     },
   },
 };
@@ -130,5 +162,18 @@ form {
 .link {
   text-decoration: none;
   color: #124F4E;
+}
+
+.aws {
+  color: #124F4E;
+  background-color: rgba(246, 247, 249, 0.5);
+  padding: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
+  border-radius: 4px;
+}
+
+.aws p {
+  font-size: 15px;
 }
 </style>
