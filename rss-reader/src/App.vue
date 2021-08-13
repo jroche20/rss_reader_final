@@ -64,54 +64,34 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  /* color: #124F4E;
-  line-height: 30px; */
 }
-/* 
-.submit {
-  font-family: 'Poppins', sans-serif;
-  background-color: #1D817F;
-  text-decoration: none;
-  color: white;
-  width: 100px;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: 4px;
-}
-
-.url_input {
-  width: 400px;
-  height: 20px;
-  margin: 20px;
-} */
 
 .header {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .logo {
-    width: 150px;
-    height: 50px;
-    padding: 9px;
-    /* margin-left: 20px; */
-    /* margin-bottom: 30px;  */
+  padding: 9px;
+  width: 15%;
 }
 
 .title {
-    padding: 20px;
-    background: #1D817F;
-    color: white;
-    font-size: 20px;
-    width: 100%;
+  padding: 20px;
+  background: #1D817F;
+  color: white;
+  font-size: 25px;
+  width: 100%;
+  display: flexbox;
 }
 
 .imgsection {
-  width: 200px;
-  display: flex;
-  align-items: center;
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .subheader {
@@ -127,7 +107,6 @@ export default {
 
 
 .aws {
-  color: #646363;
   background-color: #F6F7F9;
   padding: 10px;
   display: block;
@@ -141,13 +120,14 @@ export default {
 
 
 .status_item {
-  border: 0.5px solid #646363;
+  /* border: 0.5px solid #646363; */
   border-radius: 10px;
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 65%;
   margin-bottom: 30px;
+  margin-top: 30px;
   background-color: white;
   padding: 20px;
   
