@@ -48,7 +48,6 @@ export default {
         i.description = i.description.replace("<![CDATA[", "").replace("]]>", "");
         this.items.push(i);
       }
-
       // console.log(contents);
       // console.log(this.items);
     },
@@ -78,20 +77,17 @@ export default {
   font-size: 16px;
   border-radius: 4px;
 }
-
 .url_input {
   width: 400px;
   height: 20px;
   margin: 20px;
 } */
-
 .header {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
 }
-
 .logo {
     width: 150px;
     height: 50px;
@@ -99,7 +95,6 @@ export default {
     /* margin-left: 20px; */
     /* margin-bottom: 30px;  */
 }
-
 .title {
     padding: 20px;
     background: #1D817F;
@@ -107,13 +102,11 @@ export default {
     font-size: 20px;
     width: 100%;
 }
-
 .imgsection {
   width: 200px;
   display: flex;
   align-items: center;
 }
-
 .subheader {
   font-size: 25px;
   color: #1D817F;
@@ -124,8 +117,6 @@ export default {
   text-decoration: none;
   margin-top: 25px;
 }
-
-
 .aws {
   color: #646363;
   background-color: #F6F7F9;
@@ -137,9 +128,6 @@ export default {
   height: 100%;
   /* border-radius: 4px; */
 }
-
-
-
 .status_item {
   border: 0.5px solid #646363;
   border-radius: 10px;
@@ -152,5 +140,4 @@ export default {
   padding: 20px;
   
 }
-
 </style>
