@@ -6,26 +6,11 @@
       </div>
       <h1 class="title">System Status</h1>
     </div>
-    <form @submit.prevent="getRss">
-      <div class="firstblock">
-        <label>Current Status</label>
-        <!-- <br />
-        <input v-model="rssUrl" class="url_input" placeholder="url"/> -->
-      </div>
-      <input type="submit" class="submit"/>
-    </form>
     <div class="aws">
-      <div v-for="item of items1" :key="item.title">
-        <h1 class="text">Frankfurt AWS Status</h1>
+      <div v-for="item of items" :key="item.title" class="status_item">
+        <h1 class="subheader">{{ item.description }}</h1>
         <p class="text">Last Build Date: {{ item.date }}</p>
-        <a class="link" :href="item.link">{{ item.link }}</a>
-      </div>
-    </div>
-    <div class="aws">
-      <div v-for="item of items2" :key="item.title">
-        <h1 class="text">Title: {{ item.title }}</h1>
-        <p class="text">Last Build Date: {{ item.date }}</p>
-        <a class="link" :href="item.link">{{ item.link }}</a>
+        <a class="text" :href="item.link">{{ item.link }}</a>
       </div>
     </div>
   </div>  
@@ -36,54 +21,36 @@ export default {
   name: "App",
   data() {
     return {
-      rssUrl: "",
-      frankfurtURL: "https://status.aws.amazon.com/rss/apigateway-eu-central-1.rss",
-      montrealURL: "https://status.aws.amazon.com/rss/detective-ca-central-1.rss",
-      items1: [],
-      items2: [],
+      items: [],
     };
   },
+  created() {
+    this.getRss("https://status.aws.amazon.com/rss/qldb-us-east-1.rss");
+    this.getRss("https://status.aws.amazon.com/rss/sms-us-east-2.rss");
+    this.getRss("https://status.aws.amazon.com/rss/detective-ca-central-1.rss");
+  },
   methods: {
-    async getRss() {
-      // const urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)/g;
-      // if (!urlRegex.test(this.rssUrl)) {
-      //   console.log("not valid");
-      //   return;
-      // }
-      // const res = await fetch(
-      //   `https://api.allorigins.win/get?url=https://status.aws.amazon.com/rss/apigateway-eu-central-1.rss`
-      // );
-      // const res2 = await fetch(
-      //   `https://api.allorigins.win/get?url=https://status.aws.amazon.com/rss/detective-ca-central-1.rss`
-      // );
+    async getRss(event) {
       const res = await fetch(
-        `https://api.allorigins.win/get?url=${this.frankfurtURL}`
+        `https://api.allorigins.win/get?url=${event}`
       );
       const { contents } = await res.json();
       
       const feed = new window.DOMParser().parseFromString(contents, "text/xml");
-      const items1 = feed.querySelectorAll("channel");
-      this.items1 = [...items1].map((el) => ({
+      const query = feed.querySelectorAll("channel");
+      const temp = [...query].map((el) => ({
+        description: el.querySelector("description").innerHTML,
         link: el.querySelector("link").innerHTML,
         title: el.querySelector("title").innerHTML,
         date: el.querySelector("lastBuildDate").innerHTML,
       }));
-
-      // const res2 = await fetch(
-      //   `https://api.allorigins.win/get?url=${this.montrealURL}`
-      // );
-      // const items2 = feed2.querySelectorAll("channel");
-      // const feed2 = new window.DOMParser().parseFromString(contents2, "text/xml");
-      // const { contents2 } = await res2.json();
-      // this.items2 = [...items2].map((el) => ({
-      //   link: el.querySelector("link").innerHTML,
-      //   title: el.querySelector("title").innerHTML,
-      //   date: el.querySelector("lastBuildDate").innerHTML,
-      // }));
-      
+      for (var i of temp) {
+        i.description = i.description.replace("<![CDATA[", "").replace("]]>", "");
+        this.items.push(i);
+      }
 
       // console.log(contents);
-      // console.log(contents2);
+      // console.log(this.items);
     },
   },
 };
@@ -93,15 +60,14 @@ export default {
 #app {
   /* @import "./scss/main.scss"; */
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
-  /* font-family: Avenir, Helvetica, Arial, sans-serif; */
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #124F4E;
-  line-height: 30px;
+  /* color: #124F4E;
+  line-height: 30px; */
 }
-
+/* 
 .submit {
   font-family: 'Poppins', sans-serif;
   background-color: #1D817F;
@@ -113,17 +79,11 @@ export default {
   border-radius: 4px;
 }
 
-form {
-  background-color: rgba(246, 247, 249, 0.5);
-  padding: 20px;
-  margin: 40px;
-}
-
 .url_input {
   width: 400px;
   height: 20px;
   margin: 20px;
-}
+} */
 
 .header {
   display: flex;
@@ -154,26 +114,43 @@ form {
   align-items: center;
 }
 
-.text {
-  color: #124F4E;
+.subheader {
   font-size: 25px;
+  color: #1D817F;
+}
+.text {
+  color: #646363;
+  font-size: 15px;
+  text-decoration: none;
+  margin-top: 25px;
 }
 
-.link {
-  text-decoration: none;
-  color: #124F4E;
-}
 
 .aws {
-  color: #124F4E;
-  background-color: rgba(246, 247, 249, 0.5);
+  color: #646363;
+  background-color: #F6F7F9;
   padding: 10px;
-  margin-left: 100px;
-  margin-right: 100px;
-  border-radius: 4px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 97%;
+  height: 100%;
+  /* border-radius: 4px; */
 }
 
-.aws p {
-  font-size: 15px;
+
+
+.status_item {
+  border: 0.5px solid #646363;
+  border-radius: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  margin-bottom: 30px;
+  background-color: white;
+  padding: 20px;
+  
 }
+
 </style>
