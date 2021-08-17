@@ -48,8 +48,6 @@ export default {
         i.description = i.description.replace("<![CDATA[", "").replace("]]>", "");
         this.items.push(i);
       }
-      // console.log(contents);
-      // console.log(this.items);
     },
   },
 };
@@ -87,20 +85,27 @@ export default {
   flex-direction: row;
   align-items: center;
   width: 100%;
+  display: block;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 .logo {
-    width: 150px;
-    height: 50px;
-    padding: 9px;
-    /* margin-left: 20px; */
-    /* margin-bottom: 30px;  */
+  padding: 9px;
+  width: 10%;
+  position: relative;
 }
 .title {
-    padding: 20px;
-    background: #1D817F;
-    color: white;
-    font-size: 20px;
-    width: 100%;
+  padding: 20px;
+  position: relative;
+  background: #1D817F;
+  color: white;
+  font-size: 25px;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 96%;
 }
 .imgsection {
   width: 200px;
@@ -121,16 +126,15 @@ export default {
   color: #646363;
   background-color: #F6F7F9;
   padding: 10px;
+  position: relative;
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 97%;
   height: 100%;
-  /* border-radius: 4px; */
 }
 .status_item {
-  border: 0.5px solid #646363;
-  border-radius: 10px;
+  border-radius: 15px;
   display: block;
   margin-left: auto;
   margin-right: auto;
