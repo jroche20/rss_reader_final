@@ -64,22 +64,6 @@ export default {
   /* color: #124F4E;
   line-height: 30px; */
 }
-/* 
-.submit {
-  font-family: 'Poppins', sans-serif;
-  background-color: #1D817F;
-  text-decoration: none;
-  color: white;
-  width: 100px;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: 4px;
-}
-.url_input {
-  width: 400px;
-  height: 20px;
-  margin: 20px;
-} */
 .header {
   display: flex;
   flex-direction: row;
@@ -92,8 +76,11 @@ export default {
 }
 .logo {
   padding: 9px;
-  width: 10%;
   position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
 }
 .title {
   padding: 20px;
@@ -108,9 +95,10 @@ export default {
   width: 96%;
 }
 .imgsection {
-  width: 200px;
-  display: flex;
-  align-items: center;
+  width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 .subheader {
   font-size: 25px;
